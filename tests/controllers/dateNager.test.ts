@@ -1,9 +1,9 @@
 import request, { Response } from "supertest";
 import app from "../../src/app";
-import { CountryCode, PublicHolydayV3 } from "../../src/repositories/dateNager.types";
-import * as service from "../../src/services/dateNager";
+import { CountryCode, PublicHolydayV3 } from "../../src/repositories/datenager.types";
+import * as service from "../../src/services/datenager";
 import { AxiosError } from "axios";
-import { dateNagerController } from "../../src/controllers/dateNager";
+import { datenagerController } from "../../src/controllers/datenager";
 import { Response as ExpressResponse, Request as ExpressRequest } from "express";
 
 describe("dateNager controller tests", () => {
@@ -28,12 +28,12 @@ describe("dateNager controller tests", () => {
         ];
 
         const serviceMock = jest
-            .spyOn(service, "dateNagerService")
+            .spyOn(service, "datenagerService")
             .mockResolvedValueOnce(responseMock);
 
         const countryCode: CountryCode = "AR";
         const year = "2024";
-        const url = `/holydays?countryCode=${countryCode}&year=${year}`;
+        const url = `/holydays/${year}/${countryCode}`;
 
         const response: Response = await request(app).get(url);
 
@@ -50,7 +50,7 @@ describe("dateNager controller tests", () => {
         }
 
         const serviceMock = jest
-            .spyOn(service, "dateNagerService")
+            .spyOn(service, "datenagerService")
             .mockRejectedValueOnce({});
 
         const consoleLogSpy = jest
@@ -59,7 +59,7 @@ describe("dateNager controller tests", () => {
 
         const countryCode: CountryCode = "AR";
         const year = "2024";
-        const url = `/holydays?countryCode=${countryCode}&year=${year}`;
+        const url = `/holydays/${year}/${countryCode}`;
 
         const response: Response = await request(app).get(url);
 
@@ -77,7 +77,7 @@ describe("dateNager controller tests", () => {
         }
 
         const serviceMock = jest
-            .spyOn(service, "dateNagerService")
+            .spyOn(service, "datenagerService")
             .mockRejectedValueOnce(responseMock as AxiosError);
 
         const consoleLogSpy = jest
@@ -86,7 +86,7 @@ describe("dateNager controller tests", () => {
 
         const countryCode: unknown = "lalala";
         const year = "0";
-        const url = `/holydays?countryCode=${countryCode}&year=${year}`;
+        const url = `/holydays/${year}/${countryCode}`;
 
         const response: Response = await request(app).get(url);
 
@@ -99,7 +99,7 @@ describe("dateNager controller tests", () => {
 
     test("res.status() and res.status().json() and next() function are called", async () => {
         const expressRequestMock: unknown = {
-            query: {
+            params: {
                 countryCode: "1",
                 year: "2"
             }
@@ -113,14 +113,14 @@ describe("dateNager controller tests", () => {
         const nextMock = jest.fn();
 
         const serviceMock = jest
-            .spyOn(service, "dateNagerService")
+            .spyOn(service, "datenagerService")
             .mockResolvedValueOnce([] as PublicHolydayV3[]);
         const expressStatusSpy = jest
             .spyOn(expressResponseMock as any, "status");
         const expressStatusJsonSpy = jest
             .spyOn(expressResponseStatusMock as any, "json");
 
-        await dateNagerController(
+        await datenagerController(
             expressRequestMock as ExpressRequest,
             expressResponseMock as ExpressResponse,
             nextMock,
