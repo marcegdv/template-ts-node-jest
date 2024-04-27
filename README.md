@@ -35,5 +35,8 @@ Example command: `npm run dev`
 | -----: | ------ |
 | **dev**  | nodemon ./src/index.ts |
 | **start**  | ts-node ./src/index.ts |
+| **build**  | tsc --project tsconfig.json |
+| **serve**  | node ./dist/src/index |
 | **test** | jest |
 | **cov**  | jest --coverage |
+| **go** | npm run build && npm run serve |
