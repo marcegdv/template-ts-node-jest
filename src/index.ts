@@ -1,9 +1,13 @@
-export type TAsd = {
-    value: boolean;
-};
+import env  from './environments';
+import api from './app';
 
-export const asd: TAsd = {
-    value: true,
-};
+const HOST: string = env.HOST;
+const PORT: number = env.PORT;
 
-console.log(">>🧪 asd:", asd);
+try {
+    api.listen(PORT, () => console.log(msg));
+    const msg: string =
+        `\nServer listening on ${HOST}:${PORT}\n`;
+} catch (error) {
+    console.log('Error: Can not listen on port', PORT);
+};
