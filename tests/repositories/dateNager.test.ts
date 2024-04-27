@@ -1,6 +1,6 @@
-import { dateNagerRepository } from "../../src/repositories/dateNager";
+import { datenagerRepository } from "../../src/repositories/datenager";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { CountryCode, PublicHolydayV3 } from "../../src/repositories/dateNager.types";
+import { CountryCode, PublicHolydayV3 } from "../../src/repositories/datenager.types";
 
 describe("dateNagerRepository tests:", () => {
 
@@ -34,7 +34,7 @@ describe("dateNagerRepository tests:", () => {
         const year = "2024";
         const expectedUrl = `https://date.nager.at/api/v3/publicholidays/${year}/${countryCode}`;
 
-        const response: PublicHolydayV3[] = await dateNagerRepository(countryCode, year);
+        const response: PublicHolydayV3[] = await datenagerRepository(countryCode, year);
 
         expect(axiosMock).toHaveBeenCalledTimes(1);
         expect(axiosMock).toHaveBeenCalledWith(expectedUrl);
@@ -67,7 +67,7 @@ describe("dateNagerRepository tests:", () => {
 
         expect.assertions(5);
         try {
-            await dateNagerRepository(countryCode as CountryCode, year);
+            await datenagerRepository(countryCode as CountryCode, year);
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(axiosMock).toHaveBeenCalledTimes(1);

@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { CountryCode, PublicHolydayV3 } from "./dateNager.types";
+import { CountryCode, PublicHolydayV3 } from "./datenager.types";
 import ENV from "../environments";
 
-export async function dateNagerRepository(
+export async function datenagerRepository(
     countryCode: CountryCode,
     year: string,
 ): Promise<PublicHolydayV3[]> {
@@ -14,7 +14,7 @@ export async function dateNagerRepository(
         return response.data;
     } catch (error: unknown) {
         const err = error as AxiosError;
-        console.log(">>⭕ repositories/dateNager - err:", err);
+        console.log(">>⭕ repositories/datenager - err:", err);
         throw err;
     }
 
