@@ -1,6 +1,6 @@
-import { dateNagerService } from "../../src/services/dateNager";
-import * as repository from "../../src/repositories/dateNager";
-import { CountryCode, PublicHolydayV3 } from "../../src/repositories/dateNager.types";
+import { datenagerService } from "../../src/services/datenager";
+import * as repository from "../../src/repositories/datenager";
+import { CountryCode, PublicHolydayV3 } from "../../src/repositories/datenager.types";
 import { AxiosError } from "axios";
 
 describe("dateNagerService tests:", () => {
@@ -10,14 +10,14 @@ describe("dateNagerService tests:", () => {
     });
 
     test("with empty params, throw error", async () => {
-        const repositorySpy = jest.spyOn(repository, "dateNagerRepository");
+        const repositorySpy = jest.spyOn(repository, "datenagerRepository");
 
         const expectedErrorMessage = "Invalid request";
         const expectedErrorStatus = 400;
 
         expect.assertions(4);
         try {
-            await dateNagerService("" as CountryCode, "");
+            await datenagerService("" as CountryCode, "");
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(repositorySpy).toHaveBeenCalledTimes(0);
@@ -28,14 +28,14 @@ describe("dateNagerService tests:", () => {
     });
 
     test("with undefined params, throw error", async () => {
-        const repositorySpy = jest.spyOn(repository, "dateNagerRepository");
+        const repositorySpy = jest.spyOn(repository, "datenagerRepository");
 
         const expectedErrorMessage = "Invalid request";
         const expectedErrorStatus = 400;
 
         expect.assertions(4);
         try {
-            await dateNagerService(
+            await datenagerService(
                 undefined as unknown as CountryCode,
                 undefined as unknown as string
             );
@@ -48,27 +48,32 @@ describe("dateNagerService tests:", () => {
         }
     });
 
-    test("call repository with not empty or undefined year and countryCode params, throw error", async () => {
+    test("call repository with valid year and countryCode params, throw error", async () => {
         const expectedStatus = 404;
         const responseMock: unknown = {
             isAxiosError: true,
             status: expectedStatus,
         }
         const repositoryMock = jest
-            .spyOn(repository, "dateNagerRepository")
+            .spyOn(repository, "datenagerRepository")
             .mockRejectedValueOnce(responseMock as AxiosError);
+
+        const consoleLogSpy = jest
+            .spyOn(console, "log")
+            .mockImplementationOnce(jest.fn());
 
         const countryCode: CountryCode = "AR";
         const year = "2024";
 
-        expect.assertions(3);
+        expect.assertions(4);
         try {
-            await dateNagerService(countryCode, year);
+            await datenagerService(countryCode, year);
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(repositoryMock).toHaveBeenCalledTimes(1);
             expect(repositoryMock).toHaveBeenCalledWith(countryCode, year);
             expect(err.status).toBe(expectedStatus);
+            expect(consoleLogSpy).toHaveBeenCalledTimes(1);
         }
     });
 
@@ -77,10 +82,10 @@ describe("dateNagerService tests:", () => {
         const year = "2024";
 
         const repositoryMock = jest
-            .spyOn(repository, "dateNagerRepository")
+            .spyOn(repository, "datenagerRepository")
             .mockImplementationOnce(jest.fn());
 
-        await dateNagerService(countryCode, year);
+        await datenagerService(countryCode, year);
 
         expect(repositoryMock).toHaveBeenCalledTimes(1);
         expect(repositoryMock).toHaveBeenCalledWith(countryCode, year);
@@ -88,7 +93,7 @@ describe("dateNagerService tests:", () => {
 
     test("call console.log if error", async () => {
         const repositoryMock = jest
-            .spyOn(repository, "dateNagerRepository")
+            .spyOn(repository, "datenagerRepository")
             .mockRejectedValueOnce({} as AxiosError);
 
         const consoleLogSpy = jest
@@ -97,7 +102,7 @@ describe("dateNagerService tests:", () => {
 
         expect.assertions(2);
         try {
-            await dateNagerService("AR", "2024");
+            await datenagerService("AR", "2024");
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(repositoryMock).toHaveBeenCalledTimes(1);
@@ -123,10 +128,10 @@ describe("dateNagerService tests:", () => {
         const year = "2024";
 
         const repositorySpy = jest
-            .spyOn(repository, "dateNagerRepository")
+            .spyOn(repository, "datenagerRepository")
             .mockResolvedValueOnce(responseMock);
 
-        const response: PublicHolydayV3[] = await dateNagerService(countryCode, year);
+        const response: PublicHolydayV3[] = await datenagerService(countryCode, year);
 
         expect(repositorySpy).toHaveBeenCalledTimes(1);
         expect(repositorySpy).toHaveBeenCalledWith(countryCode, year);

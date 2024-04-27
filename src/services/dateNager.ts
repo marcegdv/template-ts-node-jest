@@ -1,8 +1,8 @@
-import { CountryCode, PublicHolydayV3 } from "../repositories/dateNager.types";
-import { dateNagerRepository } from "../repositories/dateNager";
+import { CountryCode, PublicHolydayV3 } from "../repositories/datenager.types";
+import { datenagerRepository } from "../repositories/datenager";
 import { AxiosError } from "axios";
 
-export async function dateNagerService(
+export async function datenagerService(
     countryCode: CountryCode,
     year: string,
 ): Promise<PublicHolydayV3[]> {
@@ -14,14 +14,14 @@ export async function dateNagerService(
     }
 
     try {
-        const response: PublicHolydayV3[] = await dateNagerRepository(
+        const response: PublicHolydayV3[] = await datenagerRepository(
             countryCode as CountryCode,
             year as string,
         );
         return response;
     } catch (error: unknown) {
         const err = error as AxiosError;
-        console.log(">>⭕ services/dateNager - err:", err);
+        console.log(">>⭕ services/datenager - err:", err);
         throw err;
     }
 
