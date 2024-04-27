@@ -21,10 +21,10 @@ export type HolydayType =
 
 export type CountryCode =
     | "AD" | "AL" | "AM" | "AR" | "AT" | "AU" | "AX"
-    | "BA" | "BB" | "BE" | "BG" | "BJ" | "BO" | "BR" | "BS" | "BW" | "BY" | "BZ" | "CA"
-    | "CH" | "CL" | "CN" | "CO" | "CR" | "CU" | "CY" | "CZ" | "DE"
-    | "DK" | "DO" | "EC"
-    | "EE" | "EG" | "ES"
+    | "BA" | "BB" | "BE" | "BG" | "BJ" | "BO" | "BR" | "BS" | "BW" | "BY" | "BZ"
+    | "CA" | "CH" | "CL" | "CN" | "CO" | "CR" | "CU" | "CY" | "CZ"
+    | "DE" | "DK" | "DO"
+    | "EC" | "EE" | "EG" | "ES"
     | "FI" | "FO" | "FR"
     | "GA" | "GB" | "GD" | "GE" | "GG" | "GI" | "GL" | "GM" | "GR" | "GT" | "GY"
     | "HK" | "HN" | "HR" | "HT" | "HU"
