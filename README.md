@@ -1,4 +1,5 @@
-### Proyect dependencies:
+# REST service example with Typescript
+### Project dependencies:
 
 - **Main:**
     - axios
@@ -40,3 +41,7 @@ Example command: `npm run dev`
 | **test** | jest |
 | **cov**  | jest --coverage |
 | **go** | npm run build && npm run serve |
+
+## Branches
+### Master - v0.1.0
+Example code.
