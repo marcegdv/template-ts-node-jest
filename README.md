@@ -1,28 +1,35 @@
-### Proyect packages needed:
+### Proyect dependencies:
 
 - **Main:**
-    - "axios": "^1.6.8",
+    - axios
+    - cors
+    - express
 
-Command: `npm i axios`
+Command: `npm i axios cors express`
 
 - **Development:**
-    - "@types/jest": "^29.5.11",
-    - "@types/node": "^20.11.0",
-    - "jest": "^29.7.0",
-    - "nodemon": "^3.1.0",
-    - "ts-jest": "^29.1.1",
-    - "ts-node": "^10.9.2",
-    - "typescript": "^5.3.3"
+    - @types/cors
+    - @types/express
+    - @types/jest
+    - @types/node 
+    - jest
+    - nodemon
+    - ts-jest
+    - ts-node
+    - typescript
 
-Command: `npm i --save-dev @types/jest @types/node jest nodemon ts-jest ts-node typescript`
+Command: `npm i -D @types/cors @types/express @types/jest @types/node jest nodemon supertest ts-jest ts-node typescript`
 
 ### Initializes tsconfig.json with default values:
 Command: `npx tsc --init`
 
+### Initializes jest.config.js with prompted values:
+Command: `npx jest --init`
+
 ### Initializes GIT with defaults:
 Command: `git -init`
 
-### Scripts in **package.json**:
+### Scripts in package.json:
 Example command: `npm run dev`
 | Script name | Command |
 | -----: | ------ |
