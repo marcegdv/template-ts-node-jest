@@ -13,7 +13,7 @@ export async function datenagerController(
     const countryCode = req.params.countryCode as CountryCode;
 
     try {
-        const response: PublicHolydayV3[] = await datenagerService(countryCode, year);
+        const response: PublicHolydayV3[] = await datenagerService(year, countryCode);
         res.status(200).json(response);
     } catch (error: unknown) {
         const err = error as AxiosError;

@@ -3,8 +3,8 @@ import { datenagerRepository } from "../repositories/datenager";
 import { AxiosError } from "axios";
 
 export async function datenagerService(
-    countryCode: CountryCode,
     year: string,
+    countryCode: CountryCode,
 ): Promise<PublicHolydayV3[]> {
 
     if (!countryCode || !year) {
@@ -15,8 +15,8 @@ export async function datenagerService(
 
     try {
         const response: PublicHolydayV3[] = await datenagerRepository(
-            countryCode as CountryCode,
             year as string,
+            countryCode as CountryCode,
         );
         return response;
     } catch (error: unknown) {

@@ -31,14 +31,14 @@ describe("dateNager controller tests", () => {
             .spyOn(service, "datenagerService")
             .mockResolvedValueOnce(responseMock);
 
-        const countryCode: CountryCode = "AR";
         const year = "2024";
+        const countryCode: CountryCode = "AR";
         const url = `/holydays/${year}/${countryCode}`;
 
         const response: Response = await request(app).get(url);
 
         expect(serviceMock).toHaveBeenCalledTimes(1);
-        expect(serviceMock).toHaveBeenCalledWith(countryCode, year);
+        expect(serviceMock).toHaveBeenCalledWith(year, countryCode);
         expect(response.status).toBe(200);
         expect(response.body).toStrictEqual(responseMock);
     });
@@ -57,14 +57,14 @@ describe("dateNager controller tests", () => {
             .spyOn(console, "log")
             .mockImplementationOnce(jest.fn());
 
-        const countryCode: CountryCode = "AR";
         const year = "2024";
+        const countryCode: CountryCode = "AR";
         const url = `/holydays/${year}/${countryCode}`;
 
         const response: Response = await request(app).get(url);
 
         expect(serviceMock).toHaveBeenCalledTimes(1);
-        expect(serviceMock).toHaveBeenCalledWith(countryCode, year);
+        expect(serviceMock).toHaveBeenCalledWith(year, countryCode);
         expect(response.status).toBe(500);
         expect(response.body).toStrictEqual(responseMock);
         expect(consoleLogSpy).toHaveBeenCalledTimes(1);
@@ -84,14 +84,14 @@ describe("dateNager controller tests", () => {
             .spyOn(console, "log")
             .mockImplementationOnce(jest.fn());
 
-        const countryCode: unknown = "lalala";
         const year = "0";
+        const countryCode: unknown = "lalala";
         const url = `/holydays/${year}/${countryCode}`;
 
         const response: Response = await request(app).get(url);
 
         expect(serviceMock).toHaveBeenCalledTimes(1);
-        expect(serviceMock).toHaveBeenCalledWith(countryCode, year);
+        expect(serviceMock).toHaveBeenCalledWith(year, countryCode);
         expect(response.status).toBe(400);
         expect(response.body).toStrictEqual(responseMock);
         expect(consoleLogSpy).toHaveBeenCalledTimes(1);
@@ -127,7 +127,7 @@ describe("dateNager controller tests", () => {
         );
 
         expect(serviceMock).toHaveBeenCalledTimes(1);
-        expect(serviceMock).toHaveBeenCalledWith("1", "2");
+        expect(serviceMock).toHaveBeenCalledWith("2", "1");
         expect(expressStatusSpy).toHaveBeenCalledTimes(1);
         expect(expressStatusSpy).toHaveBeenCalledWith(200);
         expect(expressStatusJsonSpy).toHaveBeenCalledTimes(1);

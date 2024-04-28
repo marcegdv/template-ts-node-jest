@@ -30,11 +30,11 @@ describe("dateNagerRepository tests:", () => {
             .spyOn(axios, "get")
             .mockResolvedValueOnce(responseMock as AxiosResponse);
 
-        const countryCode: CountryCode = "AR";
         const year = "2024";
+        const countryCode: CountryCode = "AR";
         const expectedUrl = `https://date.nager.at/api/v3/publicholidays/${year}/${countryCode}`;
 
-        const response: PublicHolydayV3[] = await datenagerRepository(countryCode, year);
+        const response: PublicHolydayV3[] = await datenagerRepository(year, countryCode);
 
         expect(axiosMock).toHaveBeenCalledTimes(1);
         expect(axiosMock).toHaveBeenCalledWith(expectedUrl);
@@ -60,14 +60,14 @@ describe("dateNagerRepository tests:", () => {
             .spyOn(console, "log")
             .mockImplementationOnce(jest.fn());
 
-        const countryCode: unknown = "AR123";
         const year = "2024";
+        const countryCode: unknown = "AR123";
         const expectedUrl = `https://date.nager.at/api/v3/publicholidays/${year}/${countryCode}`;
         const expectedStatus = 404;
 
         expect.assertions(5);
         try {
-            await datenagerRepository(countryCode as CountryCode, year);
+            await datenagerRepository(year, countryCode as CountryCode);
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(axiosMock).toHaveBeenCalledTimes(1);

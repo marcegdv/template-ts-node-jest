@@ -17,7 +17,7 @@ describe("dateNagerService tests:", () => {
 
         expect.assertions(4);
         try {
-            await datenagerService("" as CountryCode, "");
+            await datenagerService("", "" as CountryCode);
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(repositorySpy).toHaveBeenCalledTimes(0);
@@ -36,8 +36,8 @@ describe("dateNagerService tests:", () => {
         expect.assertions(4);
         try {
             await datenagerService(
+                undefined as unknown as string,
                 undefined as unknown as CountryCode,
-                undefined as unknown as string
             );
         } catch (error: unknown) {
             const err = error as AxiosError;
@@ -62,33 +62,33 @@ describe("dateNagerService tests:", () => {
             .spyOn(console, "log")
             .mockImplementationOnce(jest.fn());
 
-        const countryCode: CountryCode = "AR";
         const year = "2024";
+        const countryCode: CountryCode = "AR";
 
         expect.assertions(4);
         try {
-            await datenagerService(countryCode, year);
+            await datenagerService(year, countryCode);
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(repositoryMock).toHaveBeenCalledTimes(1);
-            expect(repositoryMock).toHaveBeenCalledWith(countryCode, year);
+            expect(repositoryMock).toHaveBeenCalledWith(year, countryCode);
             expect(err.status).toBe(expectedStatus);
             expect(consoleLogSpy).toHaveBeenCalledTimes(1);
         }
     });
 
     test("with not empty or undefined year and countryCode params, call repository", async () => {
-        const countryCode: CountryCode = "AR";
         const year = "2024";
+        const countryCode: CountryCode = "AR";
 
         const repositoryMock = jest
             .spyOn(repository, "datenagerRepository")
             .mockImplementationOnce(jest.fn());
 
-        await datenagerService(countryCode, year);
+        await datenagerService(year, countryCode);
 
         expect(repositoryMock).toHaveBeenCalledTimes(1);
-        expect(repositoryMock).toHaveBeenCalledWith(countryCode, year);
+        expect(repositoryMock).toHaveBeenCalledWith(year, countryCode);
     });
 
     test("call console.log if error", async () => {
@@ -102,7 +102,7 @@ describe("dateNagerService tests:", () => {
 
         expect.assertions(2);
         try {
-            await datenagerService("AR", "2024");
+            await datenagerService("2024", "AR");
         } catch (error: unknown) {
             const err = error as AxiosError;
             expect(repositoryMock).toHaveBeenCalledTimes(1);
@@ -124,17 +124,17 @@ describe("dateNagerService tests:", () => {
                 types: ["Public"]
             },
         ];
-        const countryCode: CountryCode = "AR";
         const year = "2024";
+        const countryCode: CountryCode = "AR";
 
         const repositorySpy = jest
             .spyOn(repository, "datenagerRepository")
             .mockResolvedValueOnce(responseMock);
 
-        const response: PublicHolydayV3[] = await datenagerService(countryCode, year);
+        const response: PublicHolydayV3[] = await datenagerService(year, countryCode);
 
         expect(repositorySpy).toHaveBeenCalledTimes(1);
-        expect(repositorySpy).toHaveBeenCalledWith(countryCode, year);
+        expect(repositorySpy).toHaveBeenCalledWith(year, countryCode);
         expect(response).toStrictEqual(responseMock);
     });
 
