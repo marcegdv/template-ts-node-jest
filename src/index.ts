@@ -1,4 +1,4 @@
-import env  from './environments';
+import env  from './config';
 import api from './app';
 
 const HOST: string = env.HOST;

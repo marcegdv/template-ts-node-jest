@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { CountryCode, PublicHolydayV3 } from "./datenager.types";
-import ENV from "../environments";
+import ENV from "../config";
 
 export async function datenagerRepository(
     countryCode: CountryCode,
