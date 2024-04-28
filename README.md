@@ -65,5 +65,8 @@ Example command: `npm run dev`
 | **go** | npm run build && npm run serve |
 
 ## Branches
-### Master - v0.1.0
-Example code.
+| Branch | Version |
+| --- | --- |
+| master | 0.1.0 |
+| release | 0.1.0 |
+| develop | 0.1.0 |
