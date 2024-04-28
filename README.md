@@ -16,6 +16,7 @@ Command: `npm i axios cors express`
     - @types/node 
     - jest
     - nodemon
+    - supertest
     - ts-jest
     - ts-node
     - typescript
